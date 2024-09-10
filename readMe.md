@@ -26,4 +26,5 @@ This project is designed to collect and analyze auction house data from all real
    - The function will display information about each realm with the minimum price for the specified item. Additionally, if you have a character in any of those realms, it will be indicated with an `X`.
 
 ## Example
+![alt text](https://github.com/ceo-py/ah-wow-python/blob/main/example_picture/example.png?raw=true)
 
