@@ -67,12 +67,12 @@ async def show_connected_realm_multi(all_connected_realms: ConnectedRealmsRespon
 
 def get_data():
     try:
-        connected_realms = asyncio.run(connected_realms(REGION, ACCESS_TOKEN))
+        connected_realms_response = asyncio.run(connected_realms(REGION, ACCESS_TOKEN))
 
-        asyncio.run(show_connected_realm(connected_realms))
+        asyncio.run(show_connected_realm(connected_realms_response))
         load_data()
 
-        # asyncio.run(show_connected_realm_multi(connected_realms))
+        # asyncio.run(show_connected_realm_multi(connected_realms_response))
     except RuntimeError as e:
         if "Event loop is closed" not in str(e):
             raise
