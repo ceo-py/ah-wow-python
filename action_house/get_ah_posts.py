@@ -20,6 +20,7 @@ async def fetch(session: aiohttp.ClientSession, url: str) -> "json":
 def generate_api_url_for_char_fetch(region: str, href: str, token: str) -> str:
     return f"{href[:href.index('?')] + '/auctions'}?namespace=dynamic-{region}&locale=en_{region}&access_token={token}"
 
+
 async def get_ah_posts(region: str, href: str, token: str):
     api_url = generate_api_url_for_char_fetch(region, href, token)
     async with aiohttp.ClientSession() as session:

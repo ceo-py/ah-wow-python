@@ -6,7 +6,7 @@ CONFIG = dotenv_values(find_dotenv())
 WOW_DIRECTORY = CONFIG["WOW_DIRECTORY"]
 REGION = "eu"
 
-FILE_NAME = 'merged_filtered_auctions.json'
+FILE_NAME = "merged_filtered_auctions.json"
 
 CLIENT_SECRET = CONFIG["CLIENT_SECRET"]
 CLIENT_ID = CONFIG["CLIENT_ID"]

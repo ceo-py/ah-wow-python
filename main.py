@@ -1,4 +1,7 @@
-from realms.get_all_connected_realms import get_all_connected_realms, ConnectedRealmsResponse
+from realms.get_all_connected_realms import (
+    get_all_connected_realms,
+    ConnectedRealmsResponse,
+)
 from realms.get_connected_realm import get_connected_realm
 from action_house.get_ah_posts import get_ah_posts, get_ah_posts_multi
 from settings import ACCESS_TOKEN, WOW_DIRECTORY, REGION, FILE_NAME
@@ -20,13 +23,19 @@ async def show_connected_realm(all_connected_realms: ConnectedRealmsResponse):
     total = 0
     for connected_realm in all_connected_realms.connected_realms:
         try:
-            connected_realm_response = await get_connected_realm(REGION, connected_realm.href, ACCESS_TOKEN)
+            connected_realm_response = await get_connected_realm(
+                REGION, connected_realm.href, ACCESS_TOKEN
+            )
         except Exception as e:
             continue
 
         for realm in connected_realm_response.realms:
-            response = await get_ah_posts(REGION, realm["connected_realm"]["href"], ACCESS_TOKEN)
-            file_name_creation = f"{realm['slug']}-{connected_realm_response.population.get('type')}"
+            response = await get_ah_posts(
+                REGION, realm["connected_realm"]["href"], ACCESS_TOKEN
+            )
+            file_name_creation = (
+                f"{realm['slug']}-{connected_realm_response.population.get('type')}"
+            )
             create_json_file(file_name_creation, response)
             print(realm["slug"])
             total += 1
@@ -38,7 +47,9 @@ async def show_connected_realm_multi(all_connected_realms: ConnectedRealmsRespon
     for connected_realm in all_connected_realms.connected_realms:
 
         try:
-            connected_realm_response = await get_connected_realm(REGION, connected_realm.href, ACCESS_TOKEN)
+            connected_realm_response = await get_connected_realm(
+                REGION, connected_realm.href, ACCESS_TOKEN
+            )
         except Exception as e:
             continue
 
@@ -52,6 +63,7 @@ async def show_connected_realm_multi(all_connected_realms: ConnectedRealmsRespon
 
 
 # Run the async function
+
 
 def get_data():
     try:
@@ -72,40 +84,37 @@ def show_data_for_item_single(id: int):
     sorted_diff = sorted(min_prices.items(), key=lambda x: x[1], reverse=True)
 
     for realm, price in sorted_diff:
-        print(
-            f"Realm: {realm[:realm.index('.')].upper()}, Price: {price / 10000:.2f}")
-
-
+        print(f"Realm: {realm[:realm.index('.')].upper()}, Price: {price / 10000:.2f}")
 
 
 def show_data_for_item(id: int, file_name: str) -> None:
-    with open(file_name, 'r') as file:
+    with open(file_name, "r") as file:
         data = json.load(file)
 
     auctions_df = pd.json_normalize(data)
 
     df = pd.DataFrame(auctions_df)
 
-    df_filtered = df[df['item.id'] == id]
+    df_filtered = df[df["item.id"] == id]
 
     if df_filtered.empty:
         print(f"No data found for item ID {id}.")
         return
 
-    realms_with_characters = (get_realms_with_character(WOW_DIRECTORY))
+    realms_with_characters = get_realms_with_character(WOW_DIRECTORY)
     print(realms_with_characters)
-    df_filtered['buyout'] = df_filtered['buyout'] / 10000
-    df_sorted = df_filtered.sort_values(by='buyout')
-    df_sorted['Character'] = df_sorted['realm'].apply(
-        lambda x: 'X' if any(realm in x for realm in realms_with_characters) else '')
+    df_filtered["buyout"] = df_filtered["buyout"] / 10000
+    df_sorted = df_filtered.sort_values(by="buyout")
+    df_sorted["Character"] = df_sorted["realm"].apply(
+        lambda x: "X" if any(realm in x for realm in realms_with_characters) else ""
+    )
 
-    pd.set_option('display.max_rows', None)  # Show all rows
-    pd.set_option('display.max_columns', None)  # Show all columns
-    pd.set_option('display.width', None)  # Do not truncate the display width
-    pd.set_option('display.max_colwidth', None)
+    pd.set_option("display.max_rows", None)  # Show all rows
+    pd.set_option("display.max_columns", None)  # Show all columns
+    pd.set_option("display.width", None)  # Do not truncate the display width
+    pd.set_option("display.max_colwidth", None)
 
     print(df_sorted)
-
 
 
 get_data()
