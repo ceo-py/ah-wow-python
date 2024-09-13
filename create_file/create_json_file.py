@@ -11,7 +11,7 @@ def create_json_file(file_name: str, data: list):
     file_path = os.path.join(current_dir, "data", "realms", file_name)
 
     if os.path.exists(file_path):
-        open(file_path, 'w').close()
-    
+        open(file_path, "w").close()
+
     with open(file_path, "w") as json_file:
         json.dump(data, json_file, indent=4)

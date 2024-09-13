@@ -7,6 +7,7 @@ WOW_DIRECTORY = CONFIG["WOW_DIRECTORY"]
 REGION = "eu"
 
 FILE_NAME = "merged_filtered_auctions.json"
+MERGE_JSON_LOCATION = r"D:\VSC\ah-wow-python\data\realms"
 
 CLIENT_SECRET = CONFIG["CLIENT_SECRET"]
 CLIENT_ID = CONFIG["CLIENT_ID"]

@@ -4,7 +4,14 @@ from realms.get_all_connected_realms import (
 )
 from realms.get_connected_realm import get_connected_realm
 from action_house.get_ah_posts import get_ah_posts, get_ah_posts_multi
-from settings import WOW_DIRECTORY, REGION, FILE_NAME, BATTLE_NET_AUTH_URL, CLIENT_ID, CLIENT_SECRET
+from settings import (
+    WOW_DIRECTORY,
+    REGION,
+    FILE_NAME,
+    BATTLE_NET_AUTH_URL,
+    CLIENT_ID,
+    CLIENT_SECRET,
+)
 from create_file.create_json_file import create_json_file
 from compere.compere_item import extract_buyout_prices
 from merge_data_into_json import load_data
@@ -16,7 +23,6 @@ import asyncio
 
 
 ACCESS_TOKEN = get_battle_net_token(CLIENT_ID, CLIENT_SECRET, BATTLE_NET_AUTH_URL)
-
 
 
 async def connected_realms(region: str, token: str):
@@ -134,7 +140,6 @@ get_data()
 
 
 show_data_for_item(225721, FILE_NAME)
-
 
 
 # show_data_for_item_single(222856)
