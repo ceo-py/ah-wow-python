@@ -128,7 +128,30 @@ def show_data_for_item(id: int, file_name: str) -> None:
     print(df_sorted)
 
 
-get_data()
+
+def create_csv_with_margins():
+    with open('merged_filtered_auctions.json') as file_:
+        data = json.load(file_)
+        items = {}
+        for item in sorted(data, key=lambda x: (x['item.id'], x['buyout'])):
+            items[item['item.id']] = items.get(item['item.id'], []) + [{"buyout": item['buyout'] / 10000, "realm": item["realm"]}]
+
+        df_list = []
+        for item_id, item_data in items.items():
+            row = {'item_id': item_id}
+            for i, entry in enumerate(item_data, 1):
+                row[f'buyout_{i}'] = entry['buyout']
+                row[f'realm_{i}'] = entry['realm']
+            df_list.append(row)
+
+        df = pd.DataFrame(df_list)
+        df.to_csv('item_data.csv', index=False)
+
+
+
+# show_all_items_margines()
+
+# get_data()
 
 # regen
 # show_data_for_item(222854, FILE_NAME)
@@ -139,7 +162,7 @@ get_data()
 # show_data_for_item(222856, FILE_NAME)
 
 
+# show_data_for_item(225721, FILE_NAME)
 show_data_for_item(225721, FILE_NAME)
 
 
-# show_data_for_item_single(222856)
